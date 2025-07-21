@@ -1,6 +1,8 @@
 # timbre-descriptor-py
 Python Implementation of the Timbre Descriptors proposed by G. Peeters et al and application to instrument classification
 
+Author: Dominique Fourer (dominique@fourer.fr)
+https://fourer.fr
 
 timbre-descriptor-py is a Python toolbox for automatic timbre analysis and classification of musical instruments from audio recordings, based on timbre descriptors and statistical models.
 
