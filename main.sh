@@ -1,7 +1,7 @@
 #!/bin/bash
 
-echo "./classify.py ./violon.wav"
-./classify.py ./violon.wav
+echo "python ./classify.py ./violon.wav"
+python ./classify.py ./violon.wav
 
 echo "python ./main_example.py"
 python ./main_example.py
