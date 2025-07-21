@@ -11,13 +11,12 @@ This work builds upon:
 **Dominique Fourer, Jean-Luc Rouas, Pierre Hanna, Matthias Robine.**  
 *Automatic timbre classification of ethnomusicological audio recordings.*  
 Proceedings of the International Society for Music Information Retrieval Conference (ISMIR), Taipei, Taiwan, 2014.  
-[https://ismir2014.ismir.net/papers/ISMIR_2014_paper_69.pdf](https://ismir2014.ismir.net/papers/ISMIR_2014_paper_69.pdf)
+[https://fourer.fr/publi/ismir14_dfourer.pdf)
 
 **G. Peeters.**  
 *A large set of audio features for sound description (similarity and classification) in the CUIDADO project.*  
 Technical Report, IRCAM, 2004.  
-[https://recherche.ircam.fr/equipes/analyse-synthese/peeters/docs/Peeters_2004_cuidado_features.pdf](https://recherche.ircam.fr/equipes/analyse-synthese/peeters/docs/Peeters_2004_cuidado_features.pdf)
-
+[http://recherche.ircam.fr/anasyn/peeters/ARTICLES/Peeters_2003_cuidadoaudiofeatures.pdf)
 
 #  Installation
 
