@@ -25,21 +25,19 @@ MAX_VAL = pow(2.,(nbits-1)) * 1.0;
 Fs, s = wavfile.read(filename);
 s = s/MAX_VAL;
 
-#[f0,time,s] = swp.swipep(s,Fs,numpy.array([75, 500]),0.01);
 f0, time, s = swp.swipep(s, Fs, numpy.array([75, 700]),0.01)
 
 
-# Optionnel : supprimer les zéros ou les valeurs nulles de f0 (non détectées)
+# Optional : remove spurious values when f0 is not detected
 f0 = np.array(f0)
 time = np.array(time)
 mask = f0 > 0
 f0 = f0[mask]
 time = time[mask]
 
-# Affichage du graphe
+# plot
 plt.figure(figsize=(10, 4))
 plt.plot(time, f0, label="F0 (Hz)", color='mediumblue')
-#plt.plot(time, s, label="F0 (Hz)", color='mediumred')
 plt.xlabel("Time (s)")
 plt.ylabel("Fundamental Frequency (Hz)")
 plt.title(filename)
