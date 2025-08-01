@@ -1,13 +1,15 @@
 # timbre-descriptor-py
-Simple Python Implementation of the Timbre Descriptors proposed by G. Peeters et al with an application to instrument timbre classification.
 
-A pytorch version is available here:
-https://github.com/geoffroypeeters/ttb
+A simple Python Implementation of the Timbre Descriptors proposed by G. Peeters et al. with an application to instrument timbre classification.
+
+timbre-descriptor-py is a Python toolbox for automatic timbre analysis and classification of musical instruments from audio recordings, based on timbre descriptors and statistical models.
 
 Author: Dominique Fourer (dominique@fourer.fr)
 https://fourer.fr
 
-timbre-descriptor-py is a Python toolbox for automatic timbre analysis and classification of musical instruments from audio recordings, based on timbre descriptors and statistical models.
+A pytorch version (only of the timbre descriptors) is available here:
+https://github.com/geoffroypeeters/ttb
+
 
 #  Scientific references
 
@@ -42,6 +44,9 @@ scipy==1.11.4
 pip install numpy scipy
 
 
-# Usage Example
+# Usage Example (timbre prediction)
 python classify.py violin.wav
+
+# Usage Example (F0 estimation using the SWIPE method)
+python main_examplef0.py
 
