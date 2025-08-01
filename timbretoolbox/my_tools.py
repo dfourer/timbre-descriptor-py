@@ -26,6 +26,11 @@ import scipy
 import matplotlib
 import matplotlib.pyplot as plt
 
+try:
+    from scipy.fft import fft, ifft
+except ImportError:
+    from scipy.fftpack import fft, ifft
+
 
 EPS 			= 2.2204 * pow(10, -16.0);
 
@@ -101,7 +106,7 @@ def xcorr( vec ):
 	cor[n] = numpy.dot(vec, vec);
 	cor = cor / cor[n];
 	return cor;
-	#return numpy.real( scipy.ifft(scipy.fft(vec, 2*n+1) * scipy.fft(vec, 2*n+1) ))  ;
+	#return numpy.real( ifft(fft(vec, 2*n+1) * fft(vec, 2*n+1) ))  ;
 
 ## used for debug only
 def disp_var(x, name="var", shape=True, plot=True):
@@ -178,15 +183,25 @@ def my_interpolate(x, y, xi, kind='linear'):
 	y_tmp = f(xi);
 	return y_tmp;
 
+#def primes(n):
+#    """ Input n>=6, Returns a array of primes, 2 <= p < n """
+#    sieve = numpy.ones(int(n/3 + (n%6==2)), dtype=bool)
+#    for i in range(1,int(n**0.5/3+1)):
+#        if sieve[i]:
+#            k=int(3*i+1|1)
+#            sieve[       k*k/3     ::2*k] = False
+#            sieve[k*(k-2*(i&1)+4)/3::2*k] = False
+#    return numpy.r_[2,3,((3*numpy.nonzero(sieve)[0][1:]+1)|1)]
+
 def primes(n):
-    """ Input n>=6, Returns a array of primes, 2 <= p < n """
-    sieve = numpy.ones(int(n/3 + (n%6==2)), dtype=numpy.bool)
-    for i in range(1,int(n**0.5)/3+1):
+    """Input n >= 6, Returns array of primes, 2 <= p < n"""
+    sieve = numpy.ones(int(n // 3 + (n % 6 == 2)), dtype=bool)
+    for i in range(1, int(n**0.5) // 3 + 1):
         if sieve[i]:
-            k=3*i+1|1
-            sieve[       k*k/3     ::2*k] = False
-            sieve[k*(k-2*(i&1)+4)/3::2*k] = False
-    return numpy.r_[2,3,((3*numpy.nonzero(sieve)[0][1:]+1)|1)]
+            k = 3 * i + 1 | 1
+            sieve[k * k // 3     :: 2 * k] = False
+            sieve[k * (k - 2 * (i & 1) + 4) // 3 :: 2 * k] = False
+    return numpy.r_[2, 3, ((3 * numpy.nonzero(sieve)[0][1:] + 1) | 1)]
 
 
 def specgram(x, nfft, Fs, window, noverlap):
@@ -220,10 +235,10 @@ def my_specgram(x, nfft, Fs, window, noverlap):
 		i1 = min(len(x), i0+nfft-1);
 		trame = numpy.zeros(nfft, float);
 		trame[0:len(x[i0:i1])] = x[i0:i1];
-		B_m[:, i] = scipy.fft( trame * window, padding);
+		B_m[:, i] = fft( trame * window, padding);
 		
 	if ~numpy.iscomplex(x).any():
-		Hs	= numpy.round(padding/2+1);
+		Hs	= int(numpy.round(padding/2+1));
 		F_v	= F_v[0:Hs];
 		B_m	= B_m[0:Hs, :];
 		

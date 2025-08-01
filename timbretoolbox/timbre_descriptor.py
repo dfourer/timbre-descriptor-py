@@ -32,6 +32,11 @@ import warnings							# used for warning removal
 import time								# used performance benchmark
 import timbretoolbox.my_tools as mt
 
+try:
+    from scipy.fft import fft, ifft
+except ImportError:
+    from scipy.fftpack import fft, ifft
+
 
 EPS 			= mt.EPS
 NB_DESC			= 164;
@@ -321,7 +326,7 @@ def ERBpower(a,Fs, hopsize, bwfactor=1.):
 	wh 					= int( numpy.round( wsize/2. ));
 
 	# power spectrum
-	pwrspect	= pow( abs(scipy.fft(fr, int(wsize) , axis=0)), 2.);
+	pwrspect	= pow( abs(fft(fr, int(wsize) , axis=0)), 2.);
 	pwrspect 	= pwrspect[0:wh, :];
 	
 	# array of kernel bandwidth coeffs:
@@ -446,11 +451,11 @@ def FHarrep(f_Sig_v, Fs):
 	stock_f0_m			= candidate_f0_hz_m;
 		
 	h = numpy.arange(1, config_s.nb_harmo+1.,1.);
-	for num_inharmo in xrange(0, nb_inharmo):
+	for num_inharmo in range(0, nb_inharmo):
 		inharmo_coef = inharmo_coef_v[num_inharmo];
 		nnum_harmo_v = h * numpy.sqrt( 1 + inharmo_coef * pow(h, 2.));
 	
-		for num_delta in xrange(0, nb_delta):
+		for num_delta in range(0, nb_delta):
 			# === candidate_f0_hz_v (nb_frame, 1)
 			candidate_f0_hz_v							= candidate_f0_hz_m[:,num_delta];
 			# === candidate_f0_hz_m (nb_frame, nb_harmo): (nb_frame,1)*(1,nb_harmo)
@@ -717,7 +722,7 @@ def FFTrep(s, Fs):
 	
 	# === fft (cols of dist.)
 	# === Power distribution (pow)
-	X = scipy.fft( f_DistrPts_m, i_FFTSize, axis=0);
+	X = fft( f_DistrPts_m, i_FFTSize, axis=0);
 	S_pow			= 1.0 / i_FFTSize * pow( abs( X ), 2.0);	
 	S_pow			= S_pow / sum( pow(f_Win_v, 2.));
 	S_pow[1:,:]		= S_pow[1:,:] / 2.;
@@ -1165,7 +1170,7 @@ def FCalcModulation(f_Env_v, f_ADSR_v, Fs):
 		N   		= int(round(max(numpy.array([sr_hz, pow(2.0, mt.nextpow2(L_n))]))));
 		fenetre_v	= scipy.hamming(L_n);
 		norma		= numpy.sum(fenetre_v) ;
-		fft_v		= scipy.fft(signal_v * fenetre_v*2/norma, N);
+		fft_v		= fft(signal_v * fenetre_v*2/norma, N);
 		ampl_v 		= numpy.abs(fft_v);
 		phas_v		= numpy.angle(fft_v);		
 		freq_v 		= mt.Index_to_freq( numpy.arange(0,N,1, float), sr_hz, N);		

@@ -93,7 +93,7 @@ def pred_lda(TestSet, Vect, repr1, repr2=None):
 	p1	= numpy.zeros(nbe,float);
 	p2	= numpy.zeros(nbe,float);
 	
-	for it in xrange(0,nbe):
+	for it in range(0,nbe):
 		p = numpy.dot(TestSet[it,:], Vect);
 		gr1[it], p1[it]  = confidence_dist(p, repr1);
 		gr2[it], p2[it]  = confidence_dist(p, repr1, repr2);
@@ -108,21 +108,21 @@ def pred_lda(TestSet, Vect, repr1, repr2=None):
 #  @param
 #  @return
 #  
-def confidence_dist(x, repr1, repr2=0):	
+def confidence_dist(x, repr1, repr2=None):	
 
 	nb_f, d	= numpy.shape(repr1);
 	d_hat = numpy.zeros(nb_f, float);
 	gr_hat	= 0;
 	
-	if repr2 == 0:  # minimize Euclidean distance to class centroid
+	if repr2 is None:  # minimize Euclidean distance to class centroid
 
-		for f in xrange(0, nb_f):
+		for f in range(0, nb_f):
 			d_hat[f] = numpy.linalg.norm( repr1[f, :] - x);   
 		d_min, gr_hat  = mt.my_min(d_hat);
 		p_hat = pow(d_min, -2.0)  / sum( pow(d_hat, -2.0));
  
 	else:  # maximize likelihood
-		for f in xrange(0, nb_f):
+		for f in range(0, nb_f):
 			d_hat[f] = gauss_prob(x, d, repr1[f, :], repr2[f]);   
 		d_max,gr_hat = mt.my_max(d_hat);
 		p_hat = d_max / (sum(d_hat)+mt.EPS);

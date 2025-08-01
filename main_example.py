@@ -40,7 +40,7 @@ Fs, s = wavfile.read(filename);
 s = s/MAX_VAL;
 
 if 10 * numpy.log10(mt.rms(s)[0]+timbre_descriptor.EPS) <= T_NOISE:
-	print("/!\ Warning: File possibly only contains silence (skipping) \n")
+	print("/!\\ Warning: File possibly only contains silence (skipping) \n")
 		
 ## 2 compute descriptors
 desc = timbre_descriptor.compute_all_descriptor(s, Fs);
@@ -52,7 +52,7 @@ for i in range(0,nb_desc):
 	field_name_fs.append(field_name[ i_fs[i]]);
 		
 if numpy.isnan(param_val).any() or numpy.isinf(param_val).any():
-	print("/!\ Warning: Contains spurious values", param_val, "\n")
+	print("/!\\ Warning: Contains spurious values", param_val, "\n")
 	mt.disp_var(param_val,"param_val");
 		
 ## 3 compare with previous model and select the most probable

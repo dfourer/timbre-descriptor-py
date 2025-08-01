@@ -24,7 +24,7 @@
 import numpy
 import scipy
 import scipy.interpolate
-import my_tools as mt
+import timbretoolbox.my_tools as mt
 
 # SWIPEP Pitch estimation using SWIPE'.
 #    P = SWIPEP(X,Fs,[PMIN PMAX],DT,DLOG2P,DERBS,STHR) estimates the pitch 
@@ -80,11 +80,6 @@ import my_tools as mt
 #    inspired pitch estimator for speech and music," J. Acoust. Soc. Am.
 #    124, 1638-1652.
 
-
-import numpy
-import scipy
-import scipy.interpolate
-import my_tools as mt
 def swipep(x, fs,plim=numpy.array([30, 5000]),dt=0.001,dlog2p=float(1./48.), dERBs=0.1, woverlap=0.5, sTHR=-numpy.infty):
 	"""
     SWIPE' pitch estimation algorithm.
