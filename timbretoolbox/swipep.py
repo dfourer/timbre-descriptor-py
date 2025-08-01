@@ -26,6 +26,11 @@ import scipy
 import scipy.interpolate
 import timbretoolbox.my_tools as mt
 
+try:
+    INF = numpy.inf
+except AttributeError:
+    INF = numpy.infty
+
 # SWIPEP Pitch estimation using SWIPE'.
 #    P = SWIPEP(X,Fs,[PMIN PMAX],DT,DLOG2P,DERBS,STHR) estimates the pitch 
 #    of the vector signal X every DT seconds. The sampling frequency of
@@ -80,7 +85,7 @@ import timbretoolbox.my_tools as mt
 #    inspired pitch estimator for speech and music," J. Acoust. Soc. Am.
 #    124, 1638-1652.
 
-def swipep(x, fs,plim=numpy.array([30, 5000]),dt=0.001,dlog2p=float(1./48.), dERBs=0.1, woverlap=0.5, sTHR=-numpy.infty):
+def swipep(x, fs,plim=numpy.array([30, 5000]),dt=0.001,dlog2p=float(1./48.), dERBs=0.1, woverlap=0.5, sTHR=-INF):
 	"""
     SWIPE' pitch estimation algorithm.
 
