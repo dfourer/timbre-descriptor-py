@@ -36,7 +36,17 @@ try:
     from scipy.fft import fft, ifft
 except ImportError:
     from scipy.fftpack import fft, ifft
-
+    
+try:
+    from scipy.signal import hamming
+except ImportError:
+    try:
+        from scipy import hamming
+    except ImportError:
+        try:
+            from scipy.signal.windows import hamming
+        except ImportError:
+            raise ImportError("'hamming' not found in scipy.")
 
 EPS 			= mt.EPS
 NB_DESC			= 164;
@@ -690,7 +700,7 @@ def FFTrep(s, Fs):
 	i_HopSize 		= int(f_HopSize_sec*Fs);
 	i_FFTSize 		= int( pow(2.0, mt.nextpow2(i_WinSize)) );
 	
-	f_Win_v			= scipy.signal.hamming(i_WinSize);
+	f_Win_v			= hamming(i_WinSize);
 	f_SampRateX		= float(Fs) / float(i_HopSize);
 	f_SampRateY		= i_FFTSize / Fs;
 	f_BinSize		= Fs / i_FFTSize;
@@ -863,7 +873,7 @@ def TCalcDescr(trame_s, Fs):
 	f_WinLen_sec	= 1024.0/44100;		# === is 0.0232s at 44100Hz
 	step			= int(round(f_HopSize_sec * Fs));
 	N				= int(round(f_WinLen_sec * Fs));
-	win				= scipy.signal.hamming(N);
+	win				= hamming(N);
 	l_en			= len(trame_s);
 	i2 				= numpy.arange(0, N, 1);
 	idx 			= 0;
@@ -1168,7 +1178,7 @@ def FCalcModulation(f_Env_v, f_ADSR_v, Fs):
 		
 		L_n			= len(signal_v);
 		N   		= int(round(max(numpy.array([sr_hz, pow(2.0, mt.nextpow2(L_n))]))));
-		fenetre_v	= scipy.hamming(L_n);
+		fenetre_v	= hamming(L_n);
 		norma		= numpy.sum(fenetre_v) ;
 		fft_v		= fft(signal_v * fenetre_v*2/norma, N);
 		ampl_v 		= numpy.abs(fft_v);
